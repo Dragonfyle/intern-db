@@ -14,14 +14,14 @@
 </template>
 
 <script setup lang="ts">
-import { inject, type Ref } from 'vue'
+import { inject } from 'vue'
 
-import type { Intern } from '@/types/intern'
+import type { InternsContext } from '@/types/intern'
 
 import InternListTableItem from './InternListTableItem.vue'
 import TheInternListHeader from './TheInternListHeader.vue'
 
-const filteredInterns = inject<Ref<Intern[]>>('filteredInterns') || []
+const { filteredInterns } = inject<InternsContext>('internList')!
 </script>
 
 <style scoped>

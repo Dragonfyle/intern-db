@@ -1,13 +1,15 @@
 <template>
-  <router-link to="/interns/add">
-    <VButton>Add Intern</VButton>
-  </router-link>
+  <RouterLink :to="CONFIG.ROUTES.INTERN_ADD">
+    <VButton rounded>
+      <template #icon> <Plus /> </template>
+      <template #label>Add Intern</template>
+    </VButton>
+  </RouterLink>
 </template>
 
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
+import { Plus } from 'lucide-vue-next'
 
+import CONFIG from '@/config/config'
 import VButton from '@/components/baseComponents/VButton.vue'
-
-const router = useRouter()
 </script>

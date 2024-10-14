@@ -1,14 +1,10 @@
 <template>
   <div class="toolbar-wrapper">
-    <TheInternListSearch />
-    <TheAddInternButton />
+    <slot />
   </div>
 </template>
 
-<script setup lang="ts">
-import TheInternListSearch from './TheInternListSearch.vue'
-import TheAddInternButton from './TheAddInternButton.vue'
-</script>
+<script setup lang="ts"></script>
 
 <style scoped>
 .toolbar-wrapper {

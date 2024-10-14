@@ -15,8 +15,7 @@ li {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid var(--color-border-primary);
-  border-left: none;
+  border-right: 1px solid var(--color-border-primary);
   list-style: none;
 }
 

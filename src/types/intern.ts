@@ -1,14 +1,30 @@
 import { type Ref } from 'vue'
 
-export interface Intern {
+interface Intern {
   id: number
-  name: string
-  avatarURL: string
+  firstName: string
+  lastName: string
+  avatar: string
 }
 
-export interface InternsContext {
-  interns: Ref<Intern[]>
-  updateInterns: (newInterns: Intern[]) => void
+interface InternFormContext {
+  updateInternName: (firstName: string, lastName: string) => void
+  updateInternPhoto: (photo: string) => void
 }
 
-export type FilteredInternsContext = Ref<Intern[]>
+type InternsContext = {
+  internList: Ref<Intern[]>
+  filteredInterns: Ref<Intern[]>
+  updateFiltered: (newInterns: Intern[]) => void
+  deleteInternLocally: (
+    id: number,
+  ) => { intern: Intern; index: number } | undefined
+  restoreInternLocally: (intern: Intern, index: number) => void
+}
+
+interface DeletedIntern {
+  intern: Intern
+  index: number
+}
+
+export type { InternFormContext, InternsContext, Intern, DeletedIntern }

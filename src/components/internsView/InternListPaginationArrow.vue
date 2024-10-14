@@ -23,22 +23,14 @@ const emit = defineEmits<{
 
 <style scoped>
 button {
-  background: none;
-  border: 1px solid var(--color-border-primary);
-  cursor: pointer;
   padding: 0px 8px;
   display: flex;
   align-items: center;
   justify-content: center;
+  border: none;
+  background: none;
   color: var(--color-green-primary);
-}
-
-button:first-child {
-  border-right: none;
-}
-
-button:last-child {
-  border-left: none;
+  cursor: pointer;
 }
 
 svg {

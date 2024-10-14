@@ -15,8 +15,10 @@ import InternListPaginationArrow from './InternListPaginationArrow.vue'
 
 <style scoped>
 ul {
+  width: max-content;
   display: flex;
   background-color: var(--color-background-secondary);
-  width: max-content;
+  border: 1px solid var(--color-border-primary);
+  border-radius: 5px;
 }
 </style>

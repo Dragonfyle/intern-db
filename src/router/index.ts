@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 import InternsView from '@/views/InternsView.vue'
-
+import AddInternView from '@/views/AddInternView.vue'
+import EditInternView from '@/views/EditInternView.vue'
 import CONFIG from '@/config/config'
-// import InternDetailsView from '@/views/InternDetailsView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -11,22 +11,24 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      redirect: CONFIG.ROUTES.INTERN,
+      redirect: CONFIG.ROUTES.INTERNS,
     },
     {
-      path: CONFIG.ROUTES.INTERN,
-      name: 'internsView',
+      path: CONFIG.ROUTES.INTERNS,
+      name: 'interns',
       component: InternsView,
+      children: [],
     },
-    // {
-    //   path: '/interns/:id',
-    //   name: 'internDetails',
-    //   component: () => import('../views/InternDetailsView.vue'),
-    // },
     {
       path: CONFIG.ROUTES.INTERN_ADD,
       name: 'addIntern',
-      component: () => import('@/views/AddInternView.vue'),
+      component: AddInternView,
+    },
+    {
+      path: CONFIG.ROUTES.INTERN_EDIT,
+      name: 'editIntern',
+      component: EditInternView,
+      props: true,
     },
   ],
 })
