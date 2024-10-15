@@ -7,7 +7,7 @@ import CONFIG from '@/config/config'
 import { getInternPageUrl } from '@/components/internsView/utils'
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
