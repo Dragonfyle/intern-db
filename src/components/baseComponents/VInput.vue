@@ -3,7 +3,7 @@
     <label v-if="label">{{ label }}</label>
 
     <input
-      :class="{ invalid: !isValid && isInputTouched }"
+      :class="{ invalid: !isValid && (isInputTouched || submitted) }"
       type="text"
       :value="modelValue"
       @input="handleInput"
@@ -14,11 +14,17 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-defineProps<{
-  label?: string
-  modelValue: string
-  isValid: boolean
-}>()
+withDefaults(
+  defineProps<{
+    label?: string
+    modelValue: string
+    isValid: boolean
+    submitted?: boolean
+  }>(),
+  {
+    submitted: false,
+  },
+)
 
 const emit = defineEmits<{
   'update:modelValue': [value: string]
@@ -29,6 +35,7 @@ const isInputTouched = ref(false)
 const handleInput = (event: Event) => {
   const value = (event.target as HTMLInputElement).value
   emit('update:modelValue', value)
+
   if (!isInputTouched.value) {
     isInputTouched.value = true
   }
@@ -75,5 +82,6 @@ input:focus {
 
 input.invalid {
   border-color: var(--color-border-error);
+  outline: none;
 }
 </style>

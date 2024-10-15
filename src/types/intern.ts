@@ -12,14 +12,20 @@ interface InternFormContext {
   updateInternPhoto: (photo: string) => void
 }
 
-type InternsContext = {
-  internList: Ref<Intern[]>
+type LocalInternListContext = {
   filteredInterns: Ref<Intern[]>
-  updateFiltered: (newInterns: Intern[]) => void
+  updateFiltered: (interns: Intern[]) => void
   deleteInternLocally: (
     id: number,
   ) => { intern: Intern; index: number } | undefined
   restoreInternLocally: (intern: Intern, index: number) => void
+  numberOfPages: Ref<number>
+}
+
+type GlobalInternListContext = {
+  internList: Ref<Intern[]>
+  addIntern: (intern: Intern) => void
+  setInternList: (interns: Intern[]) => void
 }
 
 interface DeletedIntern {
@@ -27,4 +33,10 @@ interface DeletedIntern {
   index: number
 }
 
-export type { InternFormContext, InternsContext, Intern, DeletedIntern }
+export type {
+  InternFormContext,
+  LocalInternListContext,
+  GlobalInternListContext,
+  Intern,
+  DeletedIntern,
+}

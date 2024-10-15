@@ -22,7 +22,7 @@ defineProps<{
 }>()
 
 const emit = defineEmits<{
-  'update:modelValue': [value: string]
+  'update:modelValue': [string]
 }>()
 </script>
 
@@ -30,7 +30,7 @@ const emit = defineEmits<{
 .input-wrapper {
   position: relative;
   height: 35px;
-  width: clamp(150px, 100%, 300px);
+  width: clamp(100px, 100%, 300px);
 }
 
 input {

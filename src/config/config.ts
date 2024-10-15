@@ -1,6 +1,6 @@
 const CONFIG = Object.freeze({
   ROUTES: Object.freeze({
-    INTERNS: '/interns',
+    INTERNS: '/interns/:page',
     INTERN_ADD: '/interns/add',
     INTERN_EDIT: '/interns/profile/:id',
   }),

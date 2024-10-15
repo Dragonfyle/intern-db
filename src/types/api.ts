@@ -1,4 +1,4 @@
-interface ApiGetJson {
+interface ApiGetOneJson {
   data: {
     id: number
     email: string
@@ -8,4 +8,12 @@ interface ApiGetJson {
   }
 }
 
-export type { ApiGetJson }
+interface ApiGetListJson {
+  page: number
+  per_page: number
+  total: number
+  total_pages: number
+  data: ApiGetOneJson['data'][]
+}
+
+export type { ApiGetOneJson, ApiGetListJson }

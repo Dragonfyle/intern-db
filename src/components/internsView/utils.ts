@@ -7,6 +7,10 @@ function getEditInternUrl(id: number): string {
   return CONFIG.ROUTES.INTERN_EDIT.replace(':id', id.toString())
 }
 
+function getInternPageUrl(page: number): string {
+  return CONFIG.ROUTES.INTERNS.replace(':page', page.toString())
+}
+
 function insertAndChangeRef<T>(array: T[], index: number, newItem: T): T[] {
   return [...array.slice(0, index), newItem, ...array.slice(index + 1)]
 }
@@ -18,4 +22,9 @@ function overwriteAndChangeRef(
   return { ...ref.value, ...updates }
 }
 
-export { getEditInternUrl, insertAndChangeRef, overwriteAndChangeRef }
+export {
+  getEditInternUrl,
+  insertAndChangeRef,
+  overwriteAndChangeRef,
+  getInternPageUrl,
+}

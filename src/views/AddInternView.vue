@@ -9,11 +9,10 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { reactive, provide } from 'vue'
 
 import TheInternForm from '@/components/internDetailsView/TheInternForm.vue'
 import type { Intern, InternFormContext } from '@/types/intern'
-import { provide } from 'vue'
 
 const newIntern = reactive<Intern>({
   id: 0,

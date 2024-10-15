@@ -5,7 +5,7 @@
     <section>
       <TheInternListToolbar>
         <VSearch placeholder="search for interns..." v-model="searchValue" />
-        <TheAddInternButton />
+        <TheInternAddButton />
       </TheInternListToolbar>
 
       <TheInternListTable />
@@ -23,14 +23,14 @@ import VHeading from '@/components/baseComponents/VHeading.vue'
 import TheInternListToolbar from '@/components/internsView/TheInternListToolbar.vue'
 import TheInternListTable from '@/components/internsView/TheInternListTable.vue'
 import TheInternListPagination from '@/components/internsView/TheInternListPagination.vue'
-import TheAddInternButton from '@/components/internsView/TheAddInternButton.vue'
+import TheInternAddButton from '@/components/internsView/TheInternAddButton.vue'
 import { useLocalInternList } from '@/composables/useLocalInternList'
-import type { InternsContext } from '@/types/intern'
+import type { LocalInternListContext } from '@/types/intern'
 
 const searchValue = ref('')
-const localListContext = useLocalInternList(searchValue)
+const localInternsContext = useLocalInternList(searchValue)
 
-provide<InternsContext>('internList', localListContext)
+provide<LocalInternListContext>('localInternsContext', localInternsContext)
 </script>
 
 <style scoped>
@@ -48,5 +48,9 @@ main {
   display: flex;
   flex-direction: column;
   gap: 20px;
+
+  @media (max-width: 900px) {
+    gap: 10px;
+  }
 }
 </style>

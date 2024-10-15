@@ -38,6 +38,10 @@ const avatar = computed(() => {
   grid-template-columns: 1fr;
   justify-content: center;
   align-items: center;
+
+  @media (max-width: 900px) {
+    gap: 20px;
+  }
 }
 
 .intern-form-photo-wrapper {

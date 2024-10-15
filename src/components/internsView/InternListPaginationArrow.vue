@@ -1,5 +1,6 @@
 <template>
   <button
+    :class="{ disabled: isDisabled }"
     :aria-label="direction === 'prev' ? 'Previous page' : 'Next page'"
     @click="emit('click')"
   >
@@ -14,6 +15,7 @@ import { ChevronsLeftIcon, ChevronsRightIcon } from 'lucide-vue-next'
 
 defineProps<{
   direction: 'prev' | 'next'
+  isDisabled: boolean
 }>()
 
 const emit = defineEmits<{
@@ -35,5 +37,9 @@ button {
 
 svg {
   width: 0.8rem;
+}
+
+.disabled {
+  color: var(--color-text-primary);
 }
 </style>

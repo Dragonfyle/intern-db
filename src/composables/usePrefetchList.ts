@@ -1,35 +1,49 @@
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
+
 import CONFIG from '@/config/config'
+import type { ApiGetListJson, ApiGetOneJson } from '@/types/api'
 import type { Intern } from '@/types/intern'
-import type { ApiGetJson } from '@/types/api'
 
 export function usePrefetchList() {
-  const prefetchedList = ref<Intern[]>([])
+  const internList = ref<Intern[]>([])
+  const numberOfPages = ref(0)
+  const route = useRoute()
 
   async function getInterns() {
     try {
-      const response = await fetch(CONFIG.API.GET_PAGE('1'))
+      const response = await fetch(
+        CONFIG.API.GET_PAGE(route.params.page as string),
+      )
       if (!response.ok) {
         throw new Error('Failed to fetch interns')
       }
-      const data = (await response.json()).data
+      const responseJson: ApiGetListJson = await response.json()
+      numberOfPages.value = responseJson.total_pages
 
-      prefetchedList.value = data.map((user: ApiGetJson['data']) => ({
-        id: user.id,
-        firstName: user.first_name,
-        lastName: user.last_name,
-        avatar: user.avatar,
-      }))
+      internList.value = responseJson.data.map(
+        (user: ApiGetOneJson['data']) => ({
+          id: user.id,
+          firstName: user.first_name,
+          lastName: user.last_name,
+          avatar: user.avatar,
+        }),
+      )
     } catch (error) {
       console.error('Error fetching interns:', error)
     }
   }
+
+  watch(route, () => {
+    getInterns()
+  })
 
   onMounted(() => {
     getInterns()
   })
 
   return {
-    prefetchedList,
+    internList,
+    numberOfPages,
   }
 }

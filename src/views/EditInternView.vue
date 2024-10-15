@@ -8,37 +8,19 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { computed } from 'vue'
 
 import TheInternForm from '@/components/internDetailsView/TheInternForm.vue'
-import type { Intern } from '@/types/intern'
 import { usePrefetchOne } from '@/composables/usePrefetchOne'
-import { overwriteAndChangeRef } from '@/components/internsView/utils'
 
 const { id } = defineProps<{ id: string }>()
 
-const { firstName, lastName, avatar } = usePrefetchOne(Number(id))
+const formData = usePrefetchOne(Number(id))
 
-watch([firstName, lastName, avatar], () => {
-  updateInternName({
-    firstName: firstName.value,
-    lastName: lastName.value,
-    avatar: avatar.value,
-  })
-})
-
-const intern = ref<Intern>({
+const intern = computed(() => ({
   id: Number(id),
-  firstName: '',
-  lastName: '',
-  avatar: '',
-})
-
-function updateInternName(updates: Partial<Intern>) {
-  intern.value = overwriteAndChangeRef(intern, updates)
-}
-
-function updateInternPhoto(avatar: string) {
-  intern.value = overwriteAndChangeRef(intern, { avatar })
-}
+  firstName: formData.firstName,
+  lastName: formData.lastName,
+  avatar: formData.avatar,
+}))
 </script>

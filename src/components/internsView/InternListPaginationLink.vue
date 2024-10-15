@@ -1,13 +1,17 @@
 <template>
   <li>
-    <a href="#">{{ page }}</a>
+    <RouterLink :to="url">{{ page }}</RouterLink>
   </li>
 </template>
 
 <script setup lang="ts">
-defineProps<{
+import { getInternPageUrl } from './utils'
+
+const { page } = defineProps<{
   page: number
 }>()
+
+const url = getInternPageUrl(page)
 </script>
 
 <style scoped>
@@ -28,5 +32,10 @@ a {
   font-size: 0.8rem;
   text-decoration: none;
   color: var(--color-green-primary);
+}
+
+a.router-link-active {
+  background-color: var(--color-green-primary);
+  color: var(--color-text-secondary);
 }
 </style>

@@ -5,44 +5,27 @@
     </VIconButton>
 
     <VIconButton>
-      <Trash width="15" @click="deleteIntern(id)" />
+      <Trash width="15" @click="deleteIntern(Number(id))" />
     </VIconButton>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, inject } from 'vue'
+import { computed } from 'vue'
 import { Edit, Trash } from 'lucide-vue-next'
 
-import CONFIG from '@/config/config'
 import { getEditInternUrl } from '@/components/internsView/utils'
 import VIconButton from '@/components/baseComponents/VIconButton.vue'
-import type { InternsContext } from '@/types/intern'
+import { useDeleteIntern } from '@/composables/useDeleteIntern'
+import type {} from '@/types/intern'
 
 const { id } = defineProps<{
-  id: number
+  id: number | string
 }>()
 
-const { deleteInternLocally, restoreInternLocally } =
-  inject<InternsContext>('internList')!
+const { deleteIntern } = useDeleteIntern()
 
-const editionUrl = computed(() => getEditInternUrl(id))
-
-async function deleteIntern(id: number) {
-  const deletedIntern = deleteInternLocally?.(id)
-
-  try {
-    const response = await fetch(CONFIG.API.DELETE(id.toString()), {
-      method: 'DELETE',
-    })
-
-    if (!response.ok && deletedIntern) {
-      restoreInternLocally?.(deletedIntern.intern, deletedIntern.index)
-    }
-  } catch (error) {
-    console.error('Error deleting intern', error)
-  }
-}
+const editionUrl = computed(() => getEditInternUrl(Number(id)))
 </script>
 
 <style scoped>

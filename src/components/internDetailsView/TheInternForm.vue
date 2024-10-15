@@ -7,6 +7,7 @@
         :lastName="lastName"
         :isFirstNameValid="isFirstNameValid"
         :isLastNameValid="isLastNameValid"
+        :isSubmitted="isSubmitted"
         @update:firstName="firstName = $event"
         @update:lastName="lastName = $event"
       >
@@ -25,7 +26,6 @@ import { ref, watchEffect, computed } from 'vue'
 import { useRouter } from 'vue-router'
 
 import VHeading from '@/components/baseComponents/VHeading.vue'
-import CONFIG from '@/config/config'
 import { useCreateIntern } from '@/composables/useCreateIntern'
 import type { Intern } from '@/types/intern'
 
@@ -41,6 +41,7 @@ const props = defineProps<{
 
 const firstName = ref('')
 const lastName = ref('')
+const isSubmitted = ref(false)
 
 watchEffect(() => {
   firstName.value = props.intern.firstName
@@ -60,6 +61,7 @@ function validateForm() {
 }
 
 async function submitIntern() {
+  isSubmitted.value = true
   try {
     validateForm()
 
@@ -70,7 +72,7 @@ async function submitIntern() {
     }
 
     await createIntern(internDTO)
-    router.push(CONFIG.ROUTES.INTERNS)
+    router.back()
   } catch (error) {
     console.error(error)
   }
@@ -92,5 +94,16 @@ form {
   gap: 3%;
   justify-content: center;
   align-items: center;
+
+  @media (max-width: 1280px) {
+    width: 70vw;
+  }
+
+  @media (max-width: 900px) {
+    height: auto;
+    width: 80vw;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
 }
 </style>

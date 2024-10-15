@@ -1,23 +1,26 @@
-import { onMounted, ref } from 'vue'
+import { onMounted, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 
 import CONFIG from '@/config/config'
-import type { ApiGetJson } from '@/types/api'
+import type { ApiGetOneJson } from '@/types/api'
 
 export function usePrefetchOne(id: number) {
-  const firstName = ref('')
-  const lastName = ref('')
-  const avatar = ref('')
+  const formData = reactive({
+    firstName: '',
+    lastName: '',
+    avatar: '',
+  })
 
   const router = useRouter()
 
   onMounted(async () => {
-    const intern: ApiGetJson = await fetch(CONFIG.API.GET_ONE(id.toString()))
+    const intern: ApiGetOneJson = await fetch(CONFIG.API.GET_ONE(id.toString()))
       .then(res => {
         if (res.ok) {
           return res.json()
         } else {
-          router.push(CONFIG.ROUTES.INTERNS)
+          router.back()
+
           return null
         }
       })
@@ -25,14 +28,10 @@ export function usePrefetchOne(id: number) {
         return null
       })
 
-    firstName.value = intern.data.first_name
-    lastName.value = intern.data.last_name
-    avatar.value = intern.data.avatar
+    formData.firstName = intern.data.first_name
+    formData.lastName = intern.data.last_name
+    formData.avatar = intern.data.avatar
   })
 
-  return {
-    firstName,
-    lastName,
-    avatar,
-  }
+  return formData
 }

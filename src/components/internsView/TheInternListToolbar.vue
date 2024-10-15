@@ -12,5 +12,13 @@
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid var(--color-border-primary);
+
+  @media (max-width: 900px) {
+    height: auto;
+    padding-bottom: 20px;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
 }
 </style>
