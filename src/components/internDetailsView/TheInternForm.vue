@@ -12,7 +12,10 @@
         @update:lastName="lastName = $event"
       >
         <template #submit-button>
-          <TheInternFormSumbitButton :label="buttonLabel" />
+          <TheInternFormSumbitButton
+            :label="buttonLabel"
+            :isLoading="isLoading"
+          />
         </template>
       </TheInternFormName>
 
@@ -26,22 +29,29 @@ import { ref, watchEffect, computed } from 'vue'
 import { useRouter } from 'vue-router'
 
 import VHeading from '@/components/baseComponents/VHeading.vue'
-import { useCreateIntern } from '@/composables/useCreateIntern'
+import { useCreateOne } from '@/composables/useCreateOne'
+import { useUpdateOne } from '@/composables/useUpdateOne'
 import type { Intern } from '@/types/intern'
 
 import TheInternFormSumbitButton from './TheInternFormSumbitButton.vue'
 import TheInternFormName from './TheInternFormName.vue'
 import TheInternFormPhoto from './TheInternFormPhoto.vue'
 
-const props = defineProps<{
+interface Props {
   heading: string
   buttonLabel: string
   intern: Intern
-}>()
+  isEditMode?: boolean
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  isEditMode: false,
+})
 
 const firstName = ref('')
 const lastName = ref('')
 const isSubmitted = ref(false)
+const isLoading = ref(false)
 
 watchEffect(() => {
   firstName.value = props.intern.firstName
@@ -49,7 +59,8 @@ watchEffect(() => {
 })
 
 const router = useRouter()
-const { createIntern } = useCreateIntern()
+const { createIntern } = useCreateOne()
+const { updateIntern } = useUpdateOne()
 
 const isFirstNameValid = computed(() => firstName.value !== '')
 const isLastNameValid = computed(() => lastName.value !== '')
@@ -62,6 +73,8 @@ function validateForm() {
 
 async function submitIntern() {
   isSubmitted.value = true
+  isLoading.value = true
+
   try {
     validateForm()
 
@@ -71,10 +84,17 @@ async function submitIntern() {
       lastName: lastName.value,
     }
 
-    await createIntern(internDTO)
+    if (props.isEditMode) {
+      await updateIntern(internDTO)
+    } else {
+      await createIntern(internDTO)
+    }
+
     router.back()
   } catch (error) {
     console.error(error)
+  } finally {
+    isLoading.value = false
   }
 }
 </script>
@@ -84,6 +104,10 @@ async function submitIntern() {
   display: flex;
   flex-direction: column;
   gap: 20px;
+
+  @media (max-width: 900px) {
+    gap: 0px;
+  }
 }
 
 form {

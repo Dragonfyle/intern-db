@@ -6,9 +6,11 @@ const CONFIG = Object.freeze({
   }),
   API: Object.freeze({
     GET_ONE: (id: string) => `https://reqres.in/api/users/${id}`,
-    GET_PAGE: (page: string) => `https://reqres.in/api/users?page=${page}`,
+    GET_PAGE: (page: string) =>
+      `https://reqres.in/api/users?page=${page}&delay=3`,
     DELETE: (id: string) => `https://reqres.in/api/users/${id}`,
-    CREATE: 'https://reqres.in/api/users/',
+    CREATE: 'https://reqres.in/api/users?delay=3',
+    UPDATE: (id: string) => `https://reqres.in/api/users/${id}?delay=3`,
   }),
 })
 

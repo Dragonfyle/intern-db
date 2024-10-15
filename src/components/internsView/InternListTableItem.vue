@@ -1,6 +1,6 @@
 <template>
   <li>
-    <img width="50" :src="intern.avatar" :alt="intern.firstName" />
+    <img width="50" height="50" :src="intern.avatar" :alt="intern.firstName" />
     <span>{{ fullName }}</span>
 
     <TheInternListTableItemActions :id="intern.id" />
@@ -25,6 +25,7 @@ const fullName = computed(
 <style scoped>
 li {
   width: 100%;
+  height: 70px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -32,5 +33,6 @@ li {
 
 img {
   border-radius: 50%;
+  object-fit: cover;
 }
 </style>

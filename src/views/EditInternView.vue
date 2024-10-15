@@ -1,5 +1,6 @@
 <template>
   <TheInternForm
+    isEditMode
     heading="Edit Intern"
     buttonLabel="Update Intern"
     :id="id"

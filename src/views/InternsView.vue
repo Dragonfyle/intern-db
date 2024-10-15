@@ -8,7 +8,7 @@
         <TheInternAddButton />
       </TheInternListToolbar>
 
-      <TheInternListTable />
+      <TheInternListTable :is-loading="isLoading" />
     </section>
 
     <TheInternListPagination />
@@ -28,9 +28,23 @@ import { useLocalInternList } from '@/composables/useLocalInternList'
 import type { LocalInternListContext } from '@/types/intern'
 
 const searchValue = ref('')
-const localInternsContext = useLocalInternList(searchValue)
+const {
+  isLoading,
+  filteredInterns,
+  deleteInternLocally,
+  restoreInternLocally,
+  numberOfPages,
+  updateFiltered,
+} = useLocalInternList(searchValue)
 
-provide<LocalInternListContext>('localInternsContext', localInternsContext)
+provide<LocalInternListContext>('localInternsContext', {
+  isLoading,
+  filteredInterns,
+  updateFiltered,
+  deleteInternLocally,
+  restoreInternLocally,
+  numberOfPages,
+})
 </script>
 
 <style scoped>

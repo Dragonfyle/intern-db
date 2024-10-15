@@ -2,24 +2,39 @@
   <div class="intern-table-wraper">
     <TheInternListHeader />
 
-    <ul v-if="filteredInterns?.length" class="intern-list-table">
+    <ul v-if="filteredInterns?.length && !isLoading" class="intern-list-table">
       <InternListTableItem
         v-for="intern in filteredInterns"
         :key="intern.id"
         :intern="intern"
       />
     </ul>
-    <p v-else>No results</p>
+
+    <div
+      class="no-results-wrapper"
+      v-if="!filteredInterns?.length && !isLoading"
+    >
+      <p>No results</p>
+    </div>
+
+    <div class="loading-spinner-wrapper" v-if="isLoading">
+      <LoadingSpinner />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { inject } from 'vue'
 
+import LoadingSpinner from '@/components/common/LoadingSpinner.vue'
 import type { LocalInternListContext } from '@/types/intern'
 
 import InternListTableItem from './InternListTableItem.vue'
 import TheInternListHeader from './TheInternListHeader.vue'
+
+defineProps<{
+  isLoading: boolean
+}>()
 
 const { filteredInterns } = inject<LocalInternListContext>(
   'localInternsContext',
@@ -52,7 +67,8 @@ ul > li:nth-child(even) {
   background-color: var(--color-background-primary);
 }
 
-p {
+.no-results-wrapper,
+.loading-spinner-wrapper {
   margin-top: 5%;
   display: flex;
   align-items: center;

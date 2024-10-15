@@ -1,10 +1,10 @@
 import CONFIG from '@/config/config'
 import type { Intern } from '@/types/intern'
 
-export function useCreateIntern() {
-  async function createIntern(internDTO: Intern) {
-    const response = await fetch(CONFIG.API.CREATE, {
-      method: 'POST',
+export function useUpdateOne() {
+  async function updateIntern(internDTO: Intern) {
+    const response = await fetch(CONFIG.API.UPDATE(internDTO.id.toString()), {
+      method: 'PUT',
       body: JSON.stringify(internDTO),
       headers: {
         'Content-Type': 'application/json',
@@ -12,11 +12,11 @@ export function useCreateIntern() {
     })
 
     if (!response.ok) {
-      throw new Error('Failed to create intern')
+      throw new Error('Failed to update intern')
     }
 
     return await response.json()
   }
 
-  return { createIntern }
+  return { updateIntern }
 }

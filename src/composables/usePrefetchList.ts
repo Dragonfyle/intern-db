@@ -8,10 +8,12 @@ import type { Intern } from '@/types/intern'
 export function usePrefetchList() {
   const internList = ref<Intern[]>([])
   const numberOfPages = ref(0)
+  const isLoading = ref(false)
   const route = useRoute()
 
   async function getInterns() {
     try {
+      isLoading.value = true
       const response = await fetch(
         CONFIG.API.GET_PAGE(route.params.page as string),
       )
@@ -31,6 +33,8 @@ export function usePrefetchList() {
       )
     } catch (error) {
       console.error('Error fetching interns:', error)
+    } finally {
+      isLoading.value = false
     }
   }
 
@@ -45,5 +49,6 @@ export function usePrefetchList() {
   return {
     internList,
     numberOfPages,
+    isLoading,
   }
 }

@@ -13,6 +13,7 @@ interface InternFormContext {
 }
 
 type LocalInternListContext = {
+  isLoading: Ref<boolean>
   filteredInterns: Ref<Intern[]>
   updateFiltered: (interns: Intern[]) => void
   deleteInternLocally: (

@@ -48,6 +48,8 @@ const goToNextPage = () =>
 
 <style scoped>
 ul {
+  height: 30px;
+  max-height: max-content;
   width: max-content;
   display: flex;
   background-color: var(--color-background-secondary);

@@ -6,7 +6,7 @@ import { insertAndChangeRef } from '@/components/internsView/utils'
 import { usePrefetchList } from './usePrefetchList'
 
 export function useLocalInternList(searchValue: Ref<string>) {
-  const { internList, numberOfPages } = usePrefetchList()
+  const { internList, numberOfPages, isLoading } = usePrefetchList()
   const filteredInterns = ref<Intern[]>(internList.value)
 
   function filterInterns(interns: Intern[]): Intern[] {
@@ -48,5 +48,6 @@ export function useLocalInternList(searchValue: Ref<string>) {
     deleteInternLocally,
     restoreInternLocally,
     numberOfPages,
+    isLoading,
   }
 }
